@@ -20,7 +20,7 @@
     user_data: "{{ USERDATA }}"
     region: us-east-2
     group_id:
-      - sg-0ddc4d3d42edea73f
+      - sg-07b74d48769152418 
       - sg-07b74d48769152418
     wait: yes
     instance_tags:
