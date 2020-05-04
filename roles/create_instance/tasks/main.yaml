@@ -10,7 +10,7 @@
       - protocol: http
         load_balancer_port: 80
         instance_port: 80
-  register: elb
+  register: "{{ ELBNAME }}"
 
 - name: Create EC2 instances
   ec2:
@@ -21,7 +21,6 @@
     region: us-east-2
     group_id:
       - sg-07b74d48769152418 
-      - sg-07b74d48769152418
     wait: yes
     instance_tags:
       Name: web_server
@@ -35,7 +34,7 @@
   wait_for:
     host: "{{ item.public_ip }}"
     port: 80
-    timeout: 180
+    timeout: 350
   with_items: "{{ ec2_instances.tagged_instances }}"
   ignore_errors: True
 
@@ -43,6 +42,6 @@
   ec2_elb:
     state: present
     ec2_elbs: "{{ ELBNAME }}"
-    region: "{{ item.region }}"
+    region: us-east-2
     instance_id: "{{ item.id }}"
   with_items: "{{ ec2_instances.tagged_instances }}"
