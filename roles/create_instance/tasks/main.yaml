@@ -45,4 +45,5 @@
     ec2_elbs: "{{ ELBNAME }}"
     region: "{{ item.region }}"
     instance_id: "{{ item.id }}"
+    enable_availability_zone: no
   with_items: "{{ ec2_instances.tagged_instances }}"
